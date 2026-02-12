@@ -12,56 +12,96 @@ st.set_page_config(
 st.markdown("""
 <style>
 
-/* Main background */
+/* ================= ROOT ================= */
 .stApp {
-    background: linear-gradient(135deg, #F4FBFA 0%, #E6F7F4 100%);
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* ================= LIGHT MODE ================= */
+@media (prefers-color-scheme: light) {
+
+.stApp {
+    background: linear-gradient(135deg,#e9fbf8 0%,#f5fffd 100%);
 }
 
 /* Sidebar */
 section[data-testid="stSidebar"] {
-    background-color: #F4FAFA;
+    background: #e6faf6;
+    border-right: 1px solid #d1f0ea;
+}
+
+/* Main content card */
+.main > div {
+    background: white;
+    padding: 2rem;
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(0,0,0,.05);
+}
+
+/* Headings */
+h1 {
+    color:#4b2e83;
+}
+
+}
+
+/* ================= DARK MODE ================= */
+@media (prefers-color-scheme: dark) {
+
+.stApp {
+    background:#0f172a;
+}
+
+section[data-testid="stSidebar"] {
+    background:#020617;
+}
+
+.main > div {
+    background:#020617;
+    padding:2rem;
+    border-radius:18px;
+    box-shadow:none;
+}
+
+h1 {
+    color:#5eead4;
+}
+
 }
 
 /* Sidebar text */
 section[data-testid="stSidebar"] * {
-    color: black !important;
+    color:#111827;
 }
 
-/* Main title */
-h1 {
-    color: #5B3E96;
-}
-
-/* Upload box */
+/* Upload Box */
 div[data-testid="stFileUploader"] {
-    border: 2px dashed #18A999;
-    border-radius: 10px;
-    padding: 10px;
+    background:white;
+    border:2px dashed #18A999;
+    border-radius:14px;
+    padding:20px;
 }
 
 /* Buttons */
-.stDownloadButton > button,
-.stButton > button {
-    background-color: #18A999;
-    color: white;
-    border-radius: 8px;
-    border: none;
-    padding: 0.5rem 1rem;
+button {
+    background:#18A999 !important;
+    color:white !important;
+    border-radius:10px !important;
 }
 
-.stDownloadButton > button:hover,
-.stButton > button:hover {
-    background-color: #148F82;
-    color: white;
-}
-
-/* Success message */
+/* Success alert */
 div[data-testid="stAlert"] {
-    border-left: 6px solid #18A999;
+    border-left:6px solid #18A999;
+}
+
+/* Footer */
+footer {
+    visibility:hidden;
 }
 
 </style>
 """, unsafe_allow_html=True)
+
 
 
 # ---------------- SIDEBAR ----------------
@@ -178,3 +218,4 @@ st.markdown(
     "<p style='text-align:center;font-size:12px;'>Alternate Suggestions Tool | Version 1.1 (Built by Uday)</p>",
     unsafe_allow_html=True
 )
+
