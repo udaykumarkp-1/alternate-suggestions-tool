@@ -40,7 +40,7 @@ section[data-testid="stSidebar"] {
 
 /* Headings */
 h1 {
-    color:#4b2e83;
+    color:black;
 }
 
 }
@@ -64,7 +64,7 @@ section[data-testid="stSidebar"] {
 }
 
 h1 {
-    color:#5eead4;
+    color:black;
 }
 
 }
@@ -218,5 +218,6 @@ st.markdown(
     "<p style='text-align:center;font-size:12px;'>Alternate Suggestions Tool | Version 1.1 (Built by Uday)</p>",
     unsafe_allow_html=True
 )
+
 
 
