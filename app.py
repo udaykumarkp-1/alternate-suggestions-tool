@@ -49,15 +49,15 @@ h1 {
 @media (prefers-color-scheme: dark) {
 
 .stApp {
-    background:#0f172a;
+    background:#E3FDFA;
 }
 
 section[data-testid="stSidebar"] {
-    background:#020617;
+    background:#E3FDFA;
 }
 
 .main > div {
-    background:#020617;
+    background:#E3FDFA;
     padding:2rem;
     border-radius:18px;
     box-shadow:none;
@@ -218,4 +218,5 @@ st.markdown(
     "<p style='text-align:center;font-size:12px;'>Alternate Suggestions Tool | Version 1.1 (Built by Uday)</p>",
     unsafe_allow_html=True
 )
+
 
