@@ -12,47 +12,14 @@ st.set_page_config(
 st.markdown("""
 <style>
 
-/* ================= FORCE DESKTOP VIEW EVERYWHERE ================= */
+/* ================= THEME SETTINGS ================= */
 
-@media (max-width: 900px) {
-
-section[data-testid="stSidebar"] {
-    position: relative !important;
-    transform: none !important;
-    width: 320px !important;
-    min-width: 320px !important;
-    max-width: 320px !important;
-}
-
-.main {
-    margin-left: 320px !important;
-}
-
-button[kind="header"] {
-    display:none !important;
-}
-
-}
-
-/* Kill sidebar collapse button */
-button[title="Open sidebar"],
-button[title="Close sidebar"] {
-    display:none !important;
-}
-
-/* Prevent Streamlit mobile behavior */
-[data-testid="collapsedControl"] {
-    display:none !important;
-}
-
-/* ================= FORCE LIGHT THEME ALWAYS ================= */
-
-html, body, [class*="css"] {
+html, body {
     background:#E3FDFA !important;
     color:#111827 !important;
 }
 
-/* App */
+/* App background */
 .stApp {
     background: linear-gradient(135deg,#e9fbf8 0%,#f5fffd 100%) !important;
     font-family: "Segoe UI", sans-serif;
@@ -64,7 +31,12 @@ section[data-testid="stSidebar"] {
     border-right:1px solid #d1f0ea;
 }
 
-/* Main Card */
+/* Make sidebar slightly wider */
+section[data-testid="stSidebar"] > div {
+    width:340px !important;
+}
+
+/* Main container */
 .main > div {
     background:white !important;
     padding:2rem;
@@ -72,7 +44,7 @@ section[data-testid="stSidebar"] {
     box-shadow:0 8px 30px rgba(0,0,0,.05);
 }
 
-/* Text */
+/* Text colors */
 h1,h2,h3,h4,h5,h6,p,span,div,label {
     color:#111827 !important;
 }
@@ -92,7 +64,7 @@ button {
     border-radius:10px !important;
 }
 
-/* Success */
+/* Success message */
 div[data-testid="stAlert"] {
     background:#DCFCE7 !important;
     border-left:6px solid #18A999;
@@ -106,13 +78,15 @@ code {
     padding:4px 8px;
 }
 
-/* Remove footer + github icons */
-footer {visibility:hidden;}
-header {visibility:hidden;}
+/* Hide only footer (not header!) */
+footer {
+    visibility:hidden;
+}
 
 </style>
 """, unsafe_allow_html=True)
-    
+
+
 
 
 
