@@ -12,14 +12,47 @@ st.set_page_config(
 st.markdown("""
 <style>
 
-/* ===== FORCE LIGHT THEME EVERYWHERE (EVEN IN DARK MODE) ===== */
+/* ================= FORCE DESKTOP VIEW EVERYWHERE ================= */
+
+@media (max-width: 900px) {
+
+section[data-testid="stSidebar"] {
+    position: relative !important;
+    transform: none !important;
+    width: 320px !important;
+    min-width: 320px !important;
+    max-width: 320px !important;
+}
+
+.main {
+    margin-left: 320px !important;
+}
+
+button[kind="header"] {
+    display:none !important;
+}
+
+}
+
+/* Kill sidebar collapse button */
+button[title="Open sidebar"],
+button[title="Close sidebar"] {
+    display:none !important;
+}
+
+/* Prevent Streamlit mobile behavior */
+[data-testid="collapsedControl"] {
+    display:none !important;
+}
+
+/* ================= FORCE LIGHT THEME ALWAYS ================= */
 
 html, body, [class*="css"] {
     background:#E3FDFA !important;
     color:#111827 !important;
 }
 
-/* App Background */
+/* App */
 .stApp {
     background: linear-gradient(135deg,#e9fbf8 0%,#f5fffd 100%) !important;
     font-family: "Segoe UI", sans-serif;
@@ -31,7 +64,7 @@ section[data-testid="stSidebar"] {
     border-right:1px solid #d1f0ea;
 }
 
-/* Main container */
+/* Main Card */
 .main > div {
     background:white !important;
     padding:2rem;
@@ -39,64 +72,17 @@ section[data-testid="stSidebar"] {
     box-shadow:0 8px 30px rgba(0,0,0,.05);
 }
 
-/* ALL TEXT */
+/* Text */
 h1,h2,h3,h4,h5,h6,p,span,div,label {
     color:#111827 !important;
 }
 
-/* Expander (Instructions) */
-details, summary {
-    background:white !important;
-    color:#111827 !important;
-    border-radius:10px;
-}
-
-/* Pills like `new UFM List` */
-code {
-    background:#DCFCE7 !important;
-    color:#065F46 !important;
-    border-radius:6px;
-    padding:4px 8px;
-}
-
-/* ===== FILE UPLOADER FULL FIX ===== */
-
+/* File uploader */
 div[data-testid="stFileUploader"] {
     background:#F3F4F6 !important;
     border:2px dashed #18A999 !important;
     border-radius:14px;
     padding:20px;
-}
-
-/* Inner drag area */
-div[data-testid="stFileUploader"] > div {
-    background:#F3F4F6 !important;
-}
-
-/* Inner section */
-div[data-testid="stFileUploader"] section {
-    background:#F3F4F6 !important;
-}
-
-/* Label block */
-div[data-testid="stFileUploader"] label {
-    background:#F3F4F6 !important;
-}
-
-/* Text + icons */
-div[data-testid="stFileUploader"] * {
-    color:#111827 !important;
-}
-
-/* Remove dark hover */
-div[data-testid="stFileUploader"]:hover {
-    background:#F3F4F6 !important;
-}
-
-
-/* Drag text */
-div[data-testid="stFileUploader"] * {
-    color:#111827 !important;
 }
 
 /* Buttons */
@@ -106,30 +92,27 @@ button {
     border-radius:10px !important;
 }
 
-/* Success message */
+/* Success */
 div[data-testid="stAlert"] {
     background:#DCFCE7 !important;
     border-left:6px solid #18A999;
+}
+
+/* Pills */
+code {
+    background:#DCFCE7 !important;
     color:#065F46 !important;
+    border-radius:6px;
+    padding:4px 8px;
 }
 
-/* Remove Streamlit footer */
-footer {
-    visibility:hidden;
-}
-
-/* Hide GitHub / Fork icons */
+/* Remove footer + github icons */
+footer {visibility:hidden;}
 header {visibility:hidden;}
-            
-/* ===== WIDER SIDEBAR ===== */
-
-section[data-testid="stSidebar"] {
-    min-width: 350px !important;
-    max-width: 350px !important;
-}
 
 </style>
 """, unsafe_allow_html=True)
+    
 
 
 
@@ -249,3 +232,4 @@ st.markdown(
     "<p style='text-align:center;font-size:12px;'>Alternate Suggestions Tool | Version 1.1 (Built by Uday Kumar.K.P)</p>",
     unsafe_allow_html=True
 )
+
