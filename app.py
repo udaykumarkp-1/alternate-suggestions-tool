@@ -12,105 +12,91 @@ st.set_page_config(
 st.markdown("""
 <style>
 
-/* FORCE LIGHT MODE EVEN IN DARK SYSTEM */
-:root {
-    color-scheme: light;
+/* ===== FORCE LIGHT THEME EVERYWHERE (EVEN IN DARK MODE) ===== */
+
+html, body, [class*="css"] {
+    background:#E3FDFA !important;
+    color:#111827 !important;
 }
 
-/* GLOBAL RESET */
-html, body, [class*="css"] {
-    background: #e9fbf8 !important;
-    color: #111827 !important;
+/* App Background */
+.stApp {
+    background: linear-gradient(135deg,#e9fbf8 0%,#f5fffd 100%) !important;
     font-family: "Segoe UI", sans-serif;
 }
 
-/* APP BACKGROUND */
-.stApp {
-    background: linear-gradient(135deg,#e9fbf8 0%,#f5fffd 100%) !important;
-}
-
-/* SIDEBAR */
+/* Sidebar */
 section[data-testid="stSidebar"] {
-    background: #e6faf6 !important;
-    border-right: 1px solid #d1f0ea;
+    background:#e6faf6 !important;
+    border-right:1px solid #d1f0ea;
 }
 
-/* SIDEBAR TEXT */
-section[data-testid="stSidebar"] * {
-    color: #111827 !important;
-}
-
-/* MAIN CARD */
+/* Main container */
 .main > div {
-    background: white !important;
-    padding: 2rem;
-    border-radius: 18px;
-    box-shadow: 0 8px 30px rgba(0,0,0,.05);
+    background:white !important;
+    padding:2rem;
+    border-radius:18px;
+    box-shadow:0 8px 30px rgba(0,0,0,.05);
 }
 
-/* HEADINGS */
-h1, h2, h3 {
-    color: #111827 !important;
-}
-
-/* FILE UPLOADER */
-div[data-testid="stFileUploader"] {
-    background: white !important;
-    border: 2px dashed #18A999 !important;
-    border-radius: 14px;
-    padding: 20px;
-}
-
-/* BUTTONS */
-button {
-    background: #18A999 !important;
-    color: white !important;
-    border-radius: 10px !important;
-}
-
-/* SUCCESS BOX */
-div[data-testid="stAlert"] {
-    border-left: 6px solid #18A999;
-    background: #f0fffb !important;
+/* ALL TEXT */
+h1,h2,h3,h4,h5,h6,p,span,div,label {
     color:#111827 !important;
 }
 
-/* INPUTS */
-input, textarea {
+/* Expander (Instructions) */
+details, summary {
     background:white !important;
     color:#111827 !important;
+    border-radius:10px;
 }
 
-/* REMOVE STREAMLIT FOOTER */
+/* Pills like `new UFM List` */
+code {
+    background:#DCFCE7 !important;
+    color:#065F46 !important;
+    border-radius:6px;
+    padding:4px 8px;
+}
+
+/* File uploader */
+div[data-testid="stFileUploader"] {
+    background:#F3F4F6 !important;
+    border:2px dashed #18A999 !important;
+    border-radius:14px;
+    padding:20px;
+}
+
+/* Drag text */
+div[data-testid="stFileUploader"] * {
+    color:#111827 !important;
+}
+
+/* Buttons */
+button {
+    background:#18A999 !important;
+    color:white !important;
+    border-radius:10px !important;
+}
+
+/* Success message */
+div[data-testid="stAlert"] {
+    background:#DCFCE7 !important;
+    border-left:6px solid #18A999;
+    color:#065F46 !important;
+}
+
+/* Remove Streamlit footer */
 footer {
     visibility:hidden;
 }
 
-/* REMOVE DARK MODE FILTERS */
-[data-testid="stAppViewContainer"] {
-    filter:none !important;
-}
-
-/* Hide Streamlit header (GitHub / Fork / Menu) */
-header {visibility: hidden;}
-
-/* Hide deploy button area */
-[data-testid="stToolbar"] {
-    display: none !important;
-}
-
-/* Hide footer */
-footer {
-    visibility: hidden;
-}
-
-/* Remove top padding */
-.block-container {
-    padding-top: 2rem;
-}
+/* Hide GitHub / Fork icons */
+header {visibility:hidden;}
 
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
@@ -229,6 +215,7 @@ st.markdown(
     "<p style='text-align:center;font-size:12px;'>Alternate Suggestions Tool | Version 1.1 (Built by Uday)</p>",
     unsafe_allow_html=True
 )
+
 
 
 
