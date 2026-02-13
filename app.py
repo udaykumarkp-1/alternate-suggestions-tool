@@ -155,6 +155,19 @@ div[data-testid="stFileUploader"] label {
 .st-emotion-cache * {
     background-color:transparent !important;
 }
+/* ===== HIDE FORK & GITHUB ICONS ONLY ===== */
+
+/* Hide Fork button */
+a[href*="fork"],
+button:has(svg[data-testid="ForkIcon"]) {
+    display:none !important;
+}
+
+/* Hide GitHub icon */
+a[href*="github"],
+button:has(svg[data-testid="GitHubIcon"]) {
+    display:none !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -244,5 +257,6 @@ st.markdown(
     "<p style='text-align:center;font-size:12px;'>Alternate Suggestions Tool | Version 1.1|Built by (Uday Kumar.K.P)</p>",
     unsafe_allow_html=True
 )
+
 
 
