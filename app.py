@@ -9,6 +9,36 @@ st.set_page_config(
     layout="wide"
 )
 
+# ---------------- SIDEBAR ----------------
+st.sidebar.image("https://www.mrmed.in/nav/nav_logo.svg", width=280)
+st.sidebar.title("Alternate Suggestions Tool")
+st.sidebar.caption("Automated UFM Mapping Engine")
+
+with st.sidebar.expander("📘 Instructions", expanded=True):
+    st.markdown("""
+### Supported Files
+
+✔ Excel (.xlsx)  
+✔ CSV (.csv)
+
+---
+
+### Excel Format
+
+#### Sheet 1: `new UFM List`
+Required Columns:
+- Salt + Strength  
+- Item Name  
+- Qty sold  
+
+#### Sheet 2: `New UFM List(Mapped List)`
+Required Columns:
+- Salt + Strength  
+
+
+⚠ Column names must be EXACT.
+""")
+
 st.markdown("""
 <style>
 
@@ -82,46 +112,52 @@ code {
 footer {
     visibility:hidden;
 }
-            
 
-                
+/* ===== KILL ALL DARK MODE OVERLAYS / INNER BLOCKS ===== */
+
+/* Top black Streamlit header bar */
+header[data-testid="stHeader"] {
+    background:#E3FDFA !important;
+}
+
+/* Expander (Instructions) dark title bar */
+details > summary {
+    background:#F3F4F6 !important;
+}
+
+/* Expander body */
+details {
+    background:white !important;
+}
+
+/* File uploader INNER dark bar */
+div[data-testid="stFileUploader"] section {
+    background:#F3F4F6 !important;
+}
+
+/* Actual drag-drop dark rectangle */
+div[data-testid="stFileUploader"] > div {
+    background:#F3F4F6 !important;
+}
+
+/* Cloud upload container */
+div[data-testid="stFileUploader"] label {
+    background:#F3F4F6 !important;
+}
+
+/* Remove any Streamlit dark cards */
+[data-testid="stVerticalBlock"] > div {
+    background:transparent !important;
+}
+
+/* Kill any remaining dark panels */
+.st-emotion-cache,
+.st-emotion-cache * {
+    background-color:transparent !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
-
-
-
-
-
-
-# ---------------- SIDEBAR ----------------
-st.sidebar.image("https://www.mrmed.in/nav/nav_logo.svg", width=250)
-st.sidebar.title("Alternate Suggestions Tool")
-st.sidebar.caption("Automated UFM Mapping Engine")
-
-with st.sidebar.expander("📘 Instructions", expanded=True):
-    st.markdown("""
-### Supported Files
-
-✔ Excel (.xlsx)  
-✔ CSV (.csv)
-
----
-
-### Sheet Format
-
-#### Sheet 1: `Salt + Strength List`
-Required Columns:
-- Salt + Strength  
-- Item Name  
-- Qty sold  
-
-#### Sheet 2: `Salt + Strength(Mapped List)`
-Required Columns:
-- Salt + Strength  
-                
-(Column name must be exactly same)             
-""")
 
 # ---------------- MAIN PAGE ----------------
 st.title("Alternate Suggestions Tool")
@@ -146,8 +182,8 @@ if uploaded_file:
 
             # Excel handling
             else:
-                ufm_df = pd.read_excel(uploaded_file, sheet_name="Salt + Strength List")
-                salt_df = pd.read_excel(uploaded_file, sheet_name="Salt + Strength(Mapped List)")
+                ufm_df = pd.read_excel(uploaded_file, sheet_name="new UFM List")
+                salt_df = pd.read_excel(uploaded_file, sheet_name="New UFM List(Mapped List)")
 
             ufm_df.columns = ufm_df.columns.str.strip()
             salt_df.columns = salt_df.columns.str.strip()
@@ -186,7 +222,7 @@ if uploaded_file:
 
             else:
                 with pd.ExcelWriter(output, engine="openpyxl") as writer:
-                    final_df.to_excel(writer, sheet_name="Salt + Strength(Mapped List)", index=False)
+                    final_df.to_excel(writer, sheet_name="New UFM List(Mapped List)", index=False)
                 mime = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                 output_name = uploaded_file.name
 
@@ -205,6 +241,6 @@ if uploaded_file:
 # ---------------- FOOTER ----------------
 st.markdown("---")
 st.markdown(
-    "<p style='text-align:center;font-size:12px;'>Alternate Suggestions Tool | Version 1.1 (Built by Uday Kumar.K.P)</p>",
+    "<p style='text-align:center;font-size:12px;'>Alternate Suggestions Tool | Version 1.1|Built by (Uday Kumar.K.P)</p>",
     unsafe_allow_html=True
 )
