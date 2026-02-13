@@ -78,11 +78,6 @@ code {
     padding:4px 8px;
 }
 
-section[data-testid="stSidebar"] {
-    min-width: 360px !important;
-    max-width: 360px !important;
-}
-
 /* Hide only footer (not header!) */
 footer {
     visibility:hidden;
@@ -211,5 +206,6 @@ st.markdown(
     "<p style='text-align:center;font-size:12px;'>Alternate Suggestions Tool | Version 1.1 (Built by Uday Kumar.K.P)</p>",
     unsafe_allow_html=True
 )
+
 
 
