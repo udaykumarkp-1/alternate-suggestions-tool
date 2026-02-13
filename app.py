@@ -121,6 +121,13 @@ footer {
 /* Hide GitHub / Fork icons */
 header {visibility:hidden;}
 
+/* ===== WIDER SIDEBAR ===== */
+
+section[data-testid="stSidebar"] {
+    min-width: 350px !important;
+    max-width: 350px !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -242,6 +249,7 @@ st.markdown(
     "<p style='text-align:center;font-size:12px;'>Alternate Suggestions Tool | Version 1.1 (Built by Uday Kumar.K.P)</p>",
     unsafe_allow_html=True
 )
+
 
 
 
