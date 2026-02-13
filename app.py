@@ -91,6 +91,24 @@ footer {
     filter:none !important;
 }
 
+/* Hide Streamlit header (GitHub / Fork / Menu) */
+header {visibility: hidden;}
+
+/* Hide deploy button area */
+[data-testid="stToolbar"] {
+    display: none !important;
+}
+
+/* Hide footer */
+footer {
+    visibility: hidden;
+}
+
+/* Remove top padding */
+.block-container {
+    padding-top: 2rem;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -211,6 +229,7 @@ st.markdown(
     "<p style='text-align:center;font-size:12px;'>Alternate Suggestions Tool | Version 1.1 (Built by Uday)</p>",
     unsafe_allow_html=True
 )
+
 
 
 
