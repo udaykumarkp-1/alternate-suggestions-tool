@@ -25,13 +25,13 @@ with st.sidebar.expander("📘 Instructions", expanded=True):
 
 ### Excel Format
 
-#### Sheet 1: `new UFM List`
+#### Sheet 1: `Salt + Strength List`
 Required Columns:
 - Salt + Strength  
 - Item Name  
 - Qty sold  
 
-#### Sheet 2: `New UFM List(Mapped List)`
+#### Sheet 2: `Salt + Strength(Mapped List)`
 Required Columns:
 - Salt + Strength  
 
@@ -166,8 +166,8 @@ st.caption("Upload CSV / Excel → Get Alternate Suggestions")
 st.markdown("### 📤 Upload File")
 uploaded_file = st.file_uploader("", type=["xlsx", "csv"])
 
-required_columns_ufm = ["Salt + Strength", "Item Name", "Qty sold"]
-required_columns_salt = ["Salt + Strength"]
+required_columns_ufm = ["Salt + Strength List", "Item Name", "Qty sold"]
+required_columns_salt = ["Salt + Strength List"]
 
 # ---------------- PROCESSING ----------------
 if uploaded_file:
@@ -182,8 +182,8 @@ if uploaded_file:
 
             # Excel handling
             else:
-                ufm_df = pd.read_excel(uploaded_file, sheet_name="new UFM List")
-                salt_df = pd.read_excel(uploaded_file, sheet_name="New UFM List(Mapped List)")
+                ufm_df = pd.read_excel(uploaded_file, sheet_name="Salt + Strength List")
+                salt_df = pd.read_excel(uploaded_file, sheet_name="Salt + Strength(Mapped List)")
 
             ufm_df.columns = ufm_df.columns.str.strip()
             salt_df.columns = salt_df.columns.str.strip()
@@ -244,3 +244,4 @@ st.markdown(
     "<p style='text-align:center;font-size:12px;'>Alternate Suggestions Tool | Version 1.1|Built by (Uday Kumar.K.P)</p>",
     unsafe_allow_html=True
 )
+
