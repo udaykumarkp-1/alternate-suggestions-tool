@@ -166,8 +166,8 @@ st.caption("Upload CSV / Excel → Get Alternate Suggestions")
 st.markdown("### 📤 Upload File")
 uploaded_file = st.file_uploader("", type=["xlsx", "csv"])
 
-required_columns_ufm = ["Salt + Strength List", "Item Name", "Qty sold"]
-required_columns_salt = ["Salt + Strength List"]
+required_columns_ufm = ["Salt + Strength", "Item Name", "Qty sold"]
+required_columns_salt = ["Salt + Strength"]
 
 # ---------------- PROCESSING ----------------
 if uploaded_file:
@@ -244,4 +244,5 @@ st.markdown(
     "<p style='text-align:center;font-size:12px;'>Alternate Suggestions Tool | Version 1.1|Built by (Uday Kumar.K.P)</p>",
     unsafe_allow_html=True
 )
+
 
