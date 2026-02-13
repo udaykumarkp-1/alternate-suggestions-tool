@@ -82,7 +82,30 @@ code {
 footer {
     visibility:hidden;
 }
+            
+/* ================= SAFE HIDE STREAMLIT CLOUD CONTROLS ================= */
 
+/* Hide Fork button */
+button[title="Fork"] {
+    display:none !important;
+}
+
+/* Hide GitHub icon */
+a[href*="github.com"] {
+    display:none !important;
+}
+
+/* Hide 3-dot menu */
+button[aria-label="More options"] {
+    display:none !important;
+}
+
+/* Hide Streamlit top decoration bar */
+div[data-testid="stDecoration"] {
+    display:none !important;
+}
+
+                
 </style>
 """, unsafe_allow_html=True)
 
@@ -206,6 +229,3 @@ st.markdown(
     "<p style='text-align:center;font-size:12px;'>Alternate Suggestions Tool | Version 1.1 (Built by Uday Kumar.K.P)</p>",
     unsafe_allow_html=True
 )
-
-
-
