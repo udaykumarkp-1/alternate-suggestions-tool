@@ -239,9 +239,10 @@ if uploaded_file:
 # ---------------- FOOTER ----------------
 st.markdown("---")
 st.markdown(
-    "<p style='text-align:center;font-size:12px;'>Alternate Suggestions Tool | Version 1.1 (Built by Uday)</p>",
+    "<p style='text-align:center;font-size:12px;'>Alternate Suggestions Tool | Version 1.1 (Built by Uday Kumar.K.P)</p>",
     unsafe_allow_html=True
 )
+
 
 
 
