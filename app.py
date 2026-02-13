@@ -83,27 +83,6 @@ footer {
     visibility:hidden;
 }
             
-/* ================= SAFE HIDE STREAMLIT CLOUD CONTROLS ================= */
-
-/* Hide Fork button */
-button[title="Fork"] {
-    display:none !important;
-}
-
-/* Hide GitHub icon */
-a[href*="github.com"] {
-    display:none !important;
-}
-
-/* Hide 3-dot menu */
-button[aria-label="More options"] {
-    display:none !important;
-}
-
-/* Hide Streamlit top decoration bar */
-div[data-testid="stDecoration"] {
-    display:none !important;
-}
 
                 
 </style>
