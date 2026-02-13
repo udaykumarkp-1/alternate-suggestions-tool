@@ -59,13 +59,40 @@ code {
     padding:4px 8px;
 }
 
-/* File uploader */
+/* ===== FILE UPLOADER FULL FIX ===== */
+
 div[data-testid="stFileUploader"] {
     background:#F3F4F6 !important;
     border:2px dashed #18A999 !important;
     border-radius:14px;
     padding:20px;
 }
+
+/* Inner drag area */
+div[data-testid="stFileUploader"] > div {
+    background:#F3F4F6 !important;
+}
+
+/* Inner section */
+div[data-testid="stFileUploader"] section {
+    background:#F3F4F6 !important;
+}
+
+/* Label block */
+div[data-testid="stFileUploader"] label {
+    background:#F3F4F6 !important;
+}
+
+/* Text + icons */
+div[data-testid="stFileUploader"] * {
+    color:#111827 !important;
+}
+
+/* Remove dark hover */
+div[data-testid="stFileUploader"]:hover {
+    background:#F3F4F6 !important;
+}
+
 
 /* Drag text */
 div[data-testid="stFileUploader"] * {
@@ -215,6 +242,7 @@ st.markdown(
     "<p style='text-align:center;font-size:12px;'>Alternate Suggestions Tool | Version 1.1 (Built by Uday)</p>",
     unsafe_allow_html=True
 )
+
 
 
 
