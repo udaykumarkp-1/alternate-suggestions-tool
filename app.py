@@ -12,95 +12,88 @@ st.set_page_config(
 st.markdown("""
 <style>
 
-/* ================= ROOT ================= */
-.stApp {
+/* FORCE LIGHT MODE EVEN IN DARK SYSTEM */
+:root {
+    color-scheme: light;
+}
+
+/* GLOBAL RESET */
+html, body, [class*="css"] {
+    background: #e9fbf8 !important;
+    color: #111827 !important;
     font-family: "Segoe UI", sans-serif;
 }
 
-/* ================= LIGHT MODE ================= */
-@media (prefers-color-scheme: light) {
-
+/* APP BACKGROUND */
 .stApp {
-    background: linear-gradient(135deg,#e9fbf8 0%,#f5fffd 100%);
+    background: linear-gradient(135deg,#e9fbf8 0%,#f5fffd 100%) !important;
 }
 
-/* Sidebar */
+/* SIDEBAR */
 section[data-testid="stSidebar"] {
-    background: #e6faf6;
+    background: #e6faf6 !important;
     border-right: 1px solid #d1f0ea;
 }
 
-/* Main content card */
+/* SIDEBAR TEXT */
+section[data-testid="stSidebar"] * {
+    color: #111827 !important;
+}
+
+/* MAIN CARD */
 .main > div {
-    background: white;
+    background: white !important;
     padding: 2rem;
     border-radius: 18px;
     box-shadow: 0 8px 30px rgba(0,0,0,.05);
 }
 
-/* Headings */
-h1 {
-    color:black;
+/* HEADINGS */
+h1, h2, h3 {
+    color: #111827 !important;
 }
 
-}
-
-/* ================= DARK MODE ================= */
-@media (prefers-color-scheme: dark) {
-
-.stApp {
-    background:#E3FDFA;
-}
-
-section[data-testid="stSidebar"] {
-    background:#E3FDFA;
-}
-
-.main > div {
-    background:#E3FDFA;
-    padding:2rem;
-    border-radius:18px;
-    box-shadow:none;
-}
-
-h1 {
-    color:black;
-}
-
-}
-
-/* Sidebar text */
-section[data-testid="stSidebar"] * {
-    color:#111827;
-}
-
-/* Upload Box */
+/* FILE UPLOADER */
 div[data-testid="stFileUploader"] {
-    background:white;
-    border:2px dashed #18A999;
-    border-radius:14px;
-    padding:20px;
+    background: white !important;
+    border: 2px dashed #18A999 !important;
+    border-radius: 14px;
+    padding: 20px;
 }
 
-/* Buttons */
+/* BUTTONS */
 button {
-    background:#18A999 !important;
-    color:white !important;
-    border-radius:10px !important;
+    background: #18A999 !important;
+    color: white !important;
+    border-radius: 10px !important;
 }
 
-/* Success alert */
+/* SUCCESS BOX */
 div[data-testid="stAlert"] {
-    border-left:6px solid #18A999;
+    border-left: 6px solid #18A999;
+    background: #f0fffb !important;
+    color:#111827 !important;
 }
 
-/* Footer */
+/* INPUTS */
+input, textarea {
+    background:white !important;
+    color:#111827 !important;
+}
+
+/* REMOVE STREAMLIT FOOTER */
 footer {
     visibility:hidden;
 }
 
+/* REMOVE DARK MODE FILTERS */
+[data-testid="stAppViewContainer"] {
+    filter:none !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
@@ -218,6 +211,7 @@ st.markdown(
     "<p style='text-align:center;font-size:12px;'>Alternate Suggestions Tool | Version 1.1 (Built by Uday)</p>",
     unsafe_allow_html=True
 )
+
 
 
 
