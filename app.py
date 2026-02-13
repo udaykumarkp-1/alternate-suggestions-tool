@@ -120,7 +120,7 @@ footer {
 
 /* Hide GitHub / Fork icons */
 header {visibility:hidden;}
-
+            
 /* ===== WIDER SIDEBAR ===== */
 
 section[data-testid="stSidebar"] {
@@ -151,13 +151,13 @@ with st.sidebar.expander("📘 Instructions", expanded=True):
 
 ### Sheet Format
 
-#### Sheet 1: `new UFM List`
+#### Sheet 1: `Salt + Strength List`
 Required Columns:
 - Salt + Strength  
 - Item Name  
 - Qty sold  
 
-#### Sheet 2: `New UFM List(Mapped List)`
+#### Sheet 2: `Salt + Strength(Mapped List)`
 Required Columns:
 - Salt + Strength  
                 
@@ -187,8 +187,8 @@ if uploaded_file:
 
             # Excel handling
             else:
-                ufm_df = pd.read_excel(uploaded_file, sheet_name="new UFM List")
-                salt_df = pd.read_excel(uploaded_file, sheet_name="New UFM List(Mapped List)")
+                ufm_df = pd.read_excel(uploaded_file, sheet_name="Salt + Strength List")
+                salt_df = pd.read_excel(uploaded_file, sheet_name="Salt + Strength(Mapped List)")
 
             ufm_df.columns = ufm_df.columns.str.strip()
             salt_df.columns = salt_df.columns.str.strip()
@@ -227,7 +227,7 @@ if uploaded_file:
 
             else:
                 with pd.ExcelWriter(output, engine="openpyxl") as writer:
-                    final_df.to_excel(writer, sheet_name="New UFM List(Mapped List)", index=False)
+                    final_df.to_excel(writer, sheet_name="Salt + Strength(Mapped List)", index=False)
                 mime = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                 output_name = uploaded_file.name
 
@@ -249,12 +249,3 @@ st.markdown(
     "<p style='text-align:center;font-size:12px;'>Alternate Suggestions Tool | Version 1.1 (Built by Uday Kumar.K.P)</p>",
     unsafe_allow_html=True
 )
-
-
-
-
-
-
-
-
-
