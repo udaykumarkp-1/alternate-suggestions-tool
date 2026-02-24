@@ -178,6 +178,30 @@ a[href*="github"],
 button:has(svg[data-testid="GitHubIcon"]) {
     display:none !important;
 }
+            
+/* FORCE TEXT INPUT LIGHT MODE */
+
+input[type="text"] {
+    background-color: #F3F4F6 !important;
+    color: #111827 !important;
+    border-radius: 10px !important;
+    border: 1px solid #18A999 !important;
+}
+
+/* Placeholder color */
+input::placeholder {
+    color: #6B7280 !important;
+}
+
+/* Streamlit input wrapper */
+div[data-baseweb="input"] > div {
+    background: #F3F4F6 !important;
+}
+
+/* Remove dark shadow */
+div[data-baseweb="input"] input {
+    box-shadow: none !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
