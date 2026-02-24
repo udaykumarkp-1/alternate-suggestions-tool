@@ -43,6 +43,11 @@ def search(q: str):
 
     return rows
 
+@app.get("/has_data")
+def has_data():
+    row = cursor.execute("SELECT COUNT(*) FROM mapped_products").fetchone()
+    return {"has_data": row[0] > 0}
+    
 
 # 🔥 ADD THIS
 if __name__ == "__main__":
