@@ -5,6 +5,13 @@ from io import BytesIO
 
 API_URL = "https://alternate-backend.onrender.com"
 
+# 🔥 CHECK IF DATA EXISTS IN BACKEND
+try:
+    has_data_res = requests.get(f"{API_URL}/has_data", timeout=10)
+    HAS_DATA = has_data_res.json().get("has_data", False)
+except:
+    HAS_DATA = False
+
 # ---------------- PAGE CONFIG ----------------
 st.set_page_config(
     page_title="Alternate Suggestions Tool",
@@ -289,15 +296,14 @@ if uploaded_file:
                 file_name=output_name,
                 mime=mime
             )
-            if st.button("🔍 Go To Search"):
-                st.session_state["search"] = True
+
 
         except Exception as e:
             st.error(str(e))
 
             # ---------------- SEARCH SECTION (ADDED ONLY) ----------------
 
-if st.session_state.get("search"):
+if HAS_DATA:
 
     st.markdown("## 🔍 Search Alternate Products")
 
