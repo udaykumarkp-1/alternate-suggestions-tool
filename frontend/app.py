@@ -3,6 +3,8 @@ import pandas as pd
 import requests
 from io import BytesIO
 
+API_URL = "https://alternate-backend.onrender.com"
+
 # ---------------- PAGE CONFIG ----------------
 st.set_page_config(
     page_title="Alternate Suggestions Tool",
@@ -263,7 +265,7 @@ if uploaded_file:
                     "alt3": row["Alt 3 (UFM/SFM/FM)"]
                 })
 
-            requests.post("http://localhost:8000/save", json=payload)            
+            requests.post(f"{API_URL}/save", json=payload)          
 
             output = BytesIO()
 
@@ -287,9 +289,49 @@ if uploaded_file:
                 file_name=output_name,
                 mime=mime
             )
+            if st.button("🔍 Go To Search"):
+                st.session_state["search"] = True
 
         except Exception as e:
             st.error(str(e))
+
+            # ---------------- SEARCH SECTION (ADDED ONLY) ----------------
+
+if st.session_state.get("search"):
+
+    st.markdown("## 🔍 Search Alternate Products")
+
+    query = st.text_input("Enter Salt / Product Name")
+
+    if query:
+        query = query.strip()
+
+        try:
+            res = requests.get(
+                f"{API_URL}/search",
+                params={"q": query},
+                timeout=30
+            )
+
+            if res.status_code == 200:
+                data = res.json()
+
+                if len(data) == 0:
+                    st.warning("No results found.")
+                else:
+                    df = pd.DataFrame(data, columns=[
+                        "Salt + Strength",
+                        "Alt 1",
+                        "Alt 2",
+                        "Alt 3"
+                    ])
+                    st.dataframe(df, use_container_width=True)
+            else:
+                st.error("Backend error")
+
+        except Exception as e:
+            st.error(str(e))
+            
 
 # ---------------- FOOTER ----------------
 st.markdown("---")
