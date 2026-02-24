@@ -6,15 +6,21 @@ st.set_page_config(page_title="Search Alternate Products", layout="wide")
 
 st.title("🔍 Search Alternate Products")
 
+API_URL = "https://alternate-backend.onrender.com"
+
 query = st.text_input("Enter Salt / Product Name")
 
 if query:
+    query = query.strip()  # trim whitespace
 
     try:
-        res = requests.get("http://localhost:8000/search", params={"q": query})
+        res = requests.get(
+            f"{API_URL}/search",
+            params={"q": query},
+            timeout=30
+        )
 
         if res.status_code == 200:
-
             data = res.json()
 
             if len(data) == 0:
@@ -33,4 +39,4 @@ if query:
             st.error("Backend error")
 
     except Exception as e:
-        st.error(str(e))
+        st.error(f"Connection error: {e}")
