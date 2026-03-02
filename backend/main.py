@@ -58,7 +58,8 @@ def search(q: str):
     SELECT salt_strength, alternatives
     FROM mapped_products
     WHERE salt_strength LIKE ?
-    """, (f"%{q}%",)).fetchall()
+       OR alternatives LIKE ?
+    """, (f"%{q}%", f"%{q}%")).fetchall()
 
     results = []
 
