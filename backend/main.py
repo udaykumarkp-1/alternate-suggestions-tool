@@ -1,55 +1,84 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from db import cursor, conn
+import json
+from typing import List, Dict
 
 app = FastAPI()
 
-class Mapping(BaseModel):
-    salt_strength: str
-    alt1: str
-    alt2: str
-    alt3: str
+
+# ==============================
+# SAVE ENDPOINT (DYNAMIC ALTS)
+# ==============================
 
 @app.post("/save")
-def save_mapping(items: list[Mapping]):
+def save_mapping(items: List[Dict]):
 
-    for i in items:
+    for item in items:
+
+        salt_strength = item.get("Salt + Strength")
+
+        # Collect dynamic Alt columns
+        alternatives = [
+            value for key, value in item.items()
+            if key.startswith("Alt ") and value
+        ]
+
         cursor.execute("""
-        INSERT INTO mapped_products (salt_strength, alt1, alt2, alt3)
-        VALUES (?, ?, ?, ?)
-        ON CONFLICT(salt_strength)
-        DO UPDATE SET
-            alt1=excluded.alt1,
-            alt2=excluded.alt2,
-            alt3=excluded.alt3
-        """, (i.salt_strength, i.alt1, i.alt2, i.alt3))
+        INSERT OR REPLACE INTO mapped_products (salt_strength, alternatives)
+        VALUES (?, ?)
+        """, (salt_strength, json.dumps(alternatives)))
 
     conn.commit()
+
     return {"status": "saved"}
+
+
+# ==============================
+# SEARCH ENDPOINT (DYNAMIC ALTS)
+# ==============================
 
 @app.get("/search")
 def search(q: str):
 
-    q = q.strip()   # remove whitespace from query
+    q = q.strip()
 
     rows = cursor.execute("""
-    SELECT DISTINCT salt_strength, alt1, alt2, alt3
+    SELECT salt_strength, alternatives
     FROM mapped_products
-    WHERE TRIM(salt_strength) LIKE ?
-       OR TRIM(alt1) LIKE ?
-       OR TRIM(alt2) LIKE ?
-       OR TRIM(alt3) LIKE ?
-    """, (f"%{q}%",)*4).fetchall()
+    WHERE salt_strength LIKE ?
+    """, (f"%{q}%",)).fetchall()
 
-    return rows
+    results = []
+
+    for salt_strength, alternatives_json in rows:
+
+        alternatives = json.loads(alternatives_json)
+
+        row = {"Salt + Strength": salt_strength}
+
+        for i, alt in enumerate(alternatives):
+            row[f"Alt {i+1}"] = alt
+
+        results.append(row)
+
+    return results
+
+
+# ==============================
+# CHECK DATA EXISTS
+# ==============================
 
 @app.get("/has_data")
 def has_data():
     row = cursor.execute("SELECT COUNT(*) FROM mapped_products").fetchone()
     return {"has_data": row[0] > 0}
-    
 
-# 🔥 ADD THIS
+
+# ==============================
+# LOCAL RUN
+# ==============================
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
