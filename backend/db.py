@@ -1,6 +1,6 @@
 import sqlite3
 
-conn = sqlite3.connect("./database/mapped_v2.db", check_same_thread=False)
+conn = sqlite3.connect("mapped_v2.db", check_same_thread=False)
 cursor = conn.cursor()
 
 cursor.execute("""
