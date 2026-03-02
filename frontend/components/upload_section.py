@@ -2,6 +2,7 @@ import pandas as pd
 import streamlit as st
 from io import BytesIO
 from services.processor import process_mapping
+from services.api import save_payload
 
 
 def upload_section():
@@ -17,11 +18,31 @@ def upload_section():
     if uploaded_file:
         with st.spinner("Processing file... Please wait..."):
             try:
-                # 🔥 Call new processor logic
+                # Process file
                 output_file, max_alts = process_mapping(uploaded_file)
 
-                st.success("🎉 Alternate suggestions generated successfully!")
+                # 🔥 IMPORTANT PART — SAVE TO BACKEND
 
+                # Read processed file again as dataframe
+                output_file.seek(0)
+                final_df = pd.read_excel(output_file)
+
+                # Replace NaN with empty string
+                final_df = final_df.fillna("")
+
+                # Convert to JSON records
+                payload = final_df.to_dict(orient="records")
+
+                # Send to backend
+                res = save_payload(payload)
+
+                if res.status_code == 200:
+                    st.success("🎉 Alternate suggestions generated and saved successfully!")
+                else:
+                    st.error("Failed to save data to backend")
+
+                # Download button
+                output_file.seek(0)
                 st.download_button(
                     "📥 Download Processed File",
                     data=output_file,

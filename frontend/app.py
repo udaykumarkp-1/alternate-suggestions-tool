@@ -28,10 +28,7 @@ left, center, right = st.columns([1, 2, 1])
 
 with center:
 
-    HAS_DATA = check_has_data()
-
-    if HAS_DATA:
-        search_section()
+    search_section()   # Always show search
 
     upload_section()
 
