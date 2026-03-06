@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from services.api import search_products
 
+
 def search_section():
 
     st.markdown("## 🔍 Search Alternate Products")
@@ -18,10 +19,21 @@ def search_section():
                 if not data:
                     st.warning("No results found.")
                 else:
-                    # Convert response to DataFrame directly
                     df = pd.DataFrame(data)
 
-                    st.dataframe(df, use_container_width=True)
+                    # Dynamically create column configuration
+                    column_config = {}
+                    for col in df.columns:
+                        column_config[col] = st.column_config.TextColumn(
+                            col,
+                            width="large"
+                        )
+
+                    st.dataframe(
+                        df,
+                        column_config=column_config,
+                        hide_index=True
+                    )
 
             else:
                 st.error("Backend error")

@@ -36,7 +36,7 @@ with center:
     st.markdown(
         """
         <p style='text-align:center;font-size:12px; color:#6B7280;'>
-        Alternate Suggestions Tool | Version 1.1 | Built by (Uday Kumar.K.P)
+        Alternate Suggestions Tool |Built by (Uday Kumar.K.P)
         </p>
         """,
         unsafe_allow_html=True

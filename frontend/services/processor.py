@@ -38,12 +38,24 @@ def process_mapping(uploaded_file):
     ufm_df["priority"] = ufm_df["TYPE"].map(priority)
 
     def get_all_items(group):
-        group = group.sort_values(
+
+    # Check if priority exists in the group
+        if group["priority"].notna().any():
+
+            group = group.sort_values(
             by=["priority", "Qty sold"],
             ascending=[True, False]
-        )
-        return group["Item Name"].drop_duplicates().tolist()
+            )
 
+        else:
+
+            group = group.sort_values(
+            by=["Qty sold"],
+            ascending=False
+        )
+
+        return group["Item Name"].drop_duplicates().tolist()
+    
     grouped_items = (
         ufm_df.groupby("Salt + Strength")
         .apply(get_all_items)

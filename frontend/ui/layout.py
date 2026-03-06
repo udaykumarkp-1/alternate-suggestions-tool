@@ -11,11 +11,9 @@ def sidebar():
 
 ✔ Excel (.xlsx)  
 ✔ CSV (.csv)
-
 ---
-
-### Excel Format
-
+                    
+### Format
 #### Sheet 1: `Salt + Strength List`
 Required Columns:
 - Salt + Strength  
@@ -44,9 +42,7 @@ def render_header():
         <div class="header-title">
             Alternate Suggestions Tool
         </div>
-        <div class="header-caption">
-            Upload CSV / Excel → Get Alternate Suggestions
-        </div>
+    
     """, unsafe_allow_html=True)
 
     st.markdown("<hr>", unsafe_allow_html=True)
