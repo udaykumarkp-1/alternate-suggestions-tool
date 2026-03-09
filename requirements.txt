@@ -4,3 +4,4 @@ openpyxl
 fastapi
 uvicorn
 requests
+pydantic

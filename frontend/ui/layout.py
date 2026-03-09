@@ -1,48 +1,66 @@
 import streamlit as st
 
 
-def sidebar():
-    st.sidebar.title("Alternate Suggestions Tool")
-    st.sidebar.caption("Automated UFM Mapping Engine")
+# ---------------- SIDEBAR ----------------
 
-    with st.sidebar.expander("📘 Instructions", expanded=True):
+def render_sidebar():
+
+    with st.sidebar:
+
+        # LOGO
+        st.image(
+            "https://www.mrmed.in/nav/nav_logo.svg",
+            width=280
+        )
+
+
+        st.markdown("### Navigation")
+
+        st.markdown("🔎 Search Products")
+        st.markdown("📤 Bulk Upload")
+        st.markdown("📜 History")
+
+        st.markdown("---")
+
+        st.markdown("### File Format Guide")
+
+        st.markdown("**Salt + Strength List**")
+
         st.markdown("""
-### Supported Files
-
-✔ Excel (.xlsx)  
-✔ CSV (.csv)
----
-                    
-### Format
-#### Sheet 1: `Salt + Strength List`
-Required Columns:
 - Salt + Strength  
 - Item Name  
-- Qty sold  
-
-#### Sheet 2: `Salt + Strength(Mapped List)`
-Required Columns:
-- Salt + Strength  
-
-⚠ Column names must be EXACT.
+- Qty sold
 """)
 
+        st.markdown("**Salt + Strength (Mapped List)**")
+
+        st.markdown("""
+- Salt + Strength
+""")
+
+        st.warning("Column names must match exactly.")
+
+
+# ---------------- HEADER ----------------
 
 def render_header():
 
-    # Logo at top
     st.markdown("""
-        <div class="top-logo">
-            <img src="https://www.mrmed.in/nav/nav_logo.svg">
-        </div>
-    """, unsafe_allow_html=True)
+<div style="
+background:#0D2167;
+padding:8px 18px;
+border-radius:8px;
+margin-bottom:15px;
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+font-size:24px;
+font-weight:600;
+height:42px;
+">
 
-    # Title + Caption
-    st.markdown("""
-        <div class="header-title">
-            Alternate Suggestions Tool
-        </div>
-    
-    """, unsafe_allow_html=True)
+Alternate Suggestions Tool
 
-    st.markdown("<hr>", unsafe_allow_html=True)
+</div>
+""", unsafe_allow_html=True)

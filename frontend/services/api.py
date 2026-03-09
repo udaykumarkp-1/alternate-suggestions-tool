@@ -1,47 +1,79 @@
 import requests
 
-API_URL = "https://alternate-backend.onrender.com"
+BASE_URL = "https://alternate-backend.onrender.com"
+
+TIMEOUT = 30
 
 
-# ---------------- CHECK IF DATA EXISTS ----------------
-def check_has_data():
-    try:
-        res = requests.get(f"{API_URL}/has_data", timeout=10)
+# ---------------- SAVE DATA ----------------
 
-        if res.status_code == 200:
-            return res.json().get("has_data", False)
-
-        return False
-
-    except requests.exceptions.RequestException:
-        return False
-
-
-# ---------------- SAVE PROCESSED PAYLOAD ----------------
 def save_payload(payload):
+    """
+    Save processed mapping results to the backend database.
+    """
+
     try:
-        res = requests.post(
-            f"{API_URL}/save",
+        response = requests.post(
+            f"{BASE_URL}/save",
             json=payload,
-            timeout=60
+            timeout=TIMEOUT
         )
 
-        return res
+        if response.status_code == 200:
+            return True
 
-    except requests.exceptions.RequestException as e:
-        raise Exception("Backend save failed. Please try again.")
+        return False
+
+    except Exception as e:
+        print("SAVE ERROR:", e)
+        return False
 
 
-# ---------------- SEARCH PRODUCTS ----------------
-def search_products(query):
+# ---------------- SEARCH ----------------
+
+def search_api(query):
+    """
+    Search products or molecules in the stored database.
+    """
+
+    if not query:
+        return []
+
     try:
-        res = requests.get(
-            f"{API_URL}/search",
+        response = requests.get(
+            f"{BASE_URL}/search",
             params={"q": query},
-            timeout=30
+            timeout=TIMEOUT
         )
 
-        return res
+        if response.status_code == 200:
+            return response.json()
 
-    except requests.exceptions.RequestException:
-        raise Exception("Search request failed. Backend not reachable.")
+        return []
+
+    except Exception as e:
+        print("SEARCH ERROR:", e)
+        return []
+
+
+# ---------------- CHECK DATABASE STATUS ----------------
+
+def check_data_status():
+    """
+    Check if database contains any stored mappings.
+    """
+
+    try:
+        response = requests.get(
+            f"{BASE_URL}/has_data",
+            timeout=TIMEOUT
+        )
+
+        if response.status_code == 200:
+            return response.json()
+
+        return {"has_data": False}
+
+    except Exception as e:
+        print("STATUS ERROR:", e)
+        return {"has_data": False}

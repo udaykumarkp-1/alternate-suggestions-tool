@@ -82,4 +82,4 @@ def process_mapping(uploaded_file):
     final_df.to_excel(output, index=False)
     output.seek(0)
 
-    return output, max_alts
+    return output, final_df

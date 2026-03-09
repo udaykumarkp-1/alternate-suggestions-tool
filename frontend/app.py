@@ -2,42 +2,54 @@ import streamlit as st
 
 # UI
 from ui.styles import load_styles
-from ui.layout import render_header, sidebar
+from ui.layout import render_sidebar, render_header
 
-# Services
-from services.api import check_has_data
-
-# Components
-from components.upload_section import upload_section
-from components.search_section import search_section
+# Pages
+from views.search_page import render_search_page
+from views.upload_page import render_upload_page
+from views.history_page import render_history_page
 
 
 # ---------------- PAGE CONFIG ----------------
+
 st.set_page_config(
     page_title="Alternate Suggestions Tool",
-    page_icon="📊",
+    page_icon="💊",
     layout="wide"
 )
 
+# ---------------- LOAD GLOBAL STYLES ----------------
+
 load_styles()
-sidebar()
+
+# ---------------- SIDEBAR ----------------
+
+render_sidebar()
+
+# ---------------- HEADER ----------------
+
 render_header()
 
-# ---------------- CENTERED CONTENT ----------------
-left, center, right = st.columns([1, 2, 1])
+# ---------------- TABS NAVIGATION ----------------
 
-with center:
+tab1, tab2, tab3 = st.tabs([
+    "🔎 Search",
+    "📤 Bulk Upload",
+    "📜 History"
+])
 
-    search_section()   # Always show search
+# ---------------- SEARCH PAGE ----------------
 
-    upload_section()
+with tab1:
+    render_search_page()
 
-    st.markdown("---")
-    st.markdown(
-        """
-        <p style='text-align:center;font-size:12px; color:#6B7280;'>
-        Alternate Suggestions Tool |Built by (Uday Kumar.K.P)
-        </p>
-        """,
-        unsafe_allow_html=True
-    )
+# ---------------- UPLOAD PAGE ----------------
+
+with tab2:
+    render_upload_page()
+
+# ---------------- HISTORY PAGE ----------------
+
+with tab3:
+    render_history_page()
+
