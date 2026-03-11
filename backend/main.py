@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from backend.routers import search_router, save_router, status_router
+from routers import search_router, save_router, status_router
 
 app = FastAPI(title="Alternate Suggestions API")
 
