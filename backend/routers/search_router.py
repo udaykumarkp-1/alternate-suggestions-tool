@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from backend.services.search_service import search_products
+from services.search_service import search_products
 router = APIRouter()
 
 @router.get("/search")

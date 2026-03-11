@@ -1,4 +1,4 @@
-from backend.db import cursor
+from db import cursor
 import json
 
 

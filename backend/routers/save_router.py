@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from typing import List, Dict
-from backend.db import cursor, conn
+from db import cursor, conn
 import json
 
 router = APIRouter()
