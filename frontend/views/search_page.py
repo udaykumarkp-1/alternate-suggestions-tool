@@ -32,8 +32,29 @@ def render_search_page():
 
         df = pd.DataFrame(results)
 
-        st.session_state["search_results"] = df
+        # ---------------- NORMALIZE COLUMN NAMES ----------------
 
+        rename_map = {}
+
+        if "salt_strength" in df.columns:
+            rename_map["salt_strength"] = "Salt + Strength"
+
+        if "dosage_form" in df.columns:
+            rename_map["dosage_form"] = "Dosage Form"
+
+        if rename_map:
+            df = df.rename(columns=rename_map)
+
+        # ---------------- ENSURE REQUIRED COLUMNS EXIST ----------------
+
+        if "Salt + Strength" not in df.columns:
+            df["Salt + Strength"] = ""
+
+        if "Dosage Form" not in df.columns:
+            df["Dosage Form"] = ""
+
+        # Save results in session
+        st.session_state["search_results"] = df
 
     # ---------------- LOAD FROM SESSION ----------------
 

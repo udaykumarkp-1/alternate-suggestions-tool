@@ -16,7 +16,14 @@ def process_mapping(uploaded_file):
     salt_df.columns = salt_df.columns.str.strip()
 
     # Required columns
-    required_columns_ufm = ["Salt + Strength", "Item Name", "Qty sold", "TYPE"]
+    required_columns_ufm = [
+        "Salt + Strength",
+        "Item Name",
+        "Qty sold",
+        "TYPE",
+        "Dosage Form"
+    ]
+
     required_columns_salt = ["Salt + Strength"]
 
     for col in required_columns_ufm:
@@ -39,25 +46,25 @@ def process_mapping(uploaded_file):
 
     def get_all_items(group):
 
-    # Check if priority exists in the group
         if group["priority"].notna().any():
 
             group = group.sort_values(
-            by=["priority", "Qty sold"],
-            ascending=[True, False]
+                by=["priority", "Qty sold"],
+                ascending=[True, False]
             )
 
         else:
 
             group = group.sort_values(
-            by=["Qty sold"],
-            ascending=False
-        )
+                by=["Qty sold"],
+                ascending=False
+            )
 
         return group["Item Name"].drop_duplicates().tolist()
-    
+
+    # IMPORTANT: group by BOTH salt and dosage
     grouped_items = (
-        ufm_df.groupby("Salt + Strength")
+        ufm_df.groupby(["Salt + Strength", "Dosage Form"])
         .apply(get_all_items)
         .reset_index(name="AllItems")
     )
@@ -71,13 +78,14 @@ def process_mapping(uploaded_file):
 
     grouped_items = grouped_items.drop(columns=["AllItems"])
 
+    # Merge with mapped list
     final_df = salt_df.merge(
         grouped_items,
         on="Salt + Strength",
         how="left"
     )
 
-    # Save to memory instead of disk
+    # Save to memory
     output = BytesIO()
     final_df.to_excel(output, index=False)
     output.seek(0)

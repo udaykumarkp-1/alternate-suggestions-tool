@@ -37,6 +37,12 @@ def render_upload_page():
 
     st.success("File processed successfully.")
 
+    # ---------------- REMOVE UNWANTED COLUMN ----------------
+
+    # Sometimes processor or Excel may introduce a 'Dosage' column
+    # We remove it safely if present
+    processed_df = processed_df.drop(columns=["Dosage"], errors="ignore")
+
     # ---------------- PREVIEW ----------------
 
     st.markdown("### Preview Processed Data")

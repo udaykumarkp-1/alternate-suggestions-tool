@@ -6,8 +6,10 @@ router = APIRouter()
 @router.get("/has_data")
 def has_data():
 
-    row = cursor.execute(
+    cursor.execute(
         "SELECT COUNT(*) FROM mapped_products"
-    ).fetchone()
+    )
+
+    row = cursor.fetchone()
 
     return {"has_data": row[0] > 0}

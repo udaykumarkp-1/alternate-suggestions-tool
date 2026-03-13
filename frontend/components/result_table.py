@@ -9,6 +9,10 @@ def render_results_table(df: pd.DataFrame):
         st.warning("No results found.")
         return
 
+    # REMOVE DOSAGE COLUMN FROM DISPLAY
+    if "Dosage Form" in df.columns:
+        df = df.drop(columns=["Dosage Form"])
+
     df = df.reset_index(drop=True)
 
     rows_html = ""

@@ -11,6 +11,7 @@ def save_mapping(items: List[Dict]):
     for item in items:
 
         salt_strength = item.get("Salt + Strength")
+        dosage_form = item.get("Dosage Form")
 
         alternatives = [
             value
@@ -20,11 +21,14 @@ def save_mapping(items: List[Dict]):
 
         cursor.execute(
             """
-            INSERT OR REPLACE INTO mapped_products
-            (salt_strength, alternatives)
-            VALUES (?, ?)
+            INSERT INTO mapped_products (salt_strength, dosage_form, alternatives)
+            VALUES (%s, %s, %s)
+            ON CONFLICT (salt_strength, dosage_form)
+            DO UPDATE SET
+                alternatives = EXCLUDED.alternatives,
+                updated_at = CURRENT_TIMESTAMP
             """,
-            (salt_strength, json.dumps(alternatives)),
+            (salt_strength, dosage_form, json.dumps(alternatives)),
         )
 
     conn.commit()
