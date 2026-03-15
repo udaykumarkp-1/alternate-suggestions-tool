@@ -27,7 +27,7 @@ def search_products(query):
             "Dosage Form": dosage
         }
 
-        # expand alternatives into columns
+        # Expand ALL alternatives into columns
         for i, alt in enumerate(alternatives):
             row[f"Alt {i+1}"] = alt
 

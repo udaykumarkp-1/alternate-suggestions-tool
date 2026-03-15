@@ -45,24 +45,19 @@ def process_mapping(uploaded_file):
     ufm_df["priority"] = ufm_df["TYPE"].map(priority)
 
     def get_all_items(group):
-
         if group["priority"].notna().any():
-
             group = group.sort_values(
                 by=["priority", "Qty sold"],
                 ascending=[True, False]
             )
-
         else:
-
             group = group.sort_values(
                 by=["Qty sold"],
                 ascending=False
             )
-
         return group["Item Name"].drop_duplicates().tolist()
 
-    # IMPORTANT: group by BOTH salt and dosage
+    # Group by BOTH salt AND dosage
     grouped_items = (
         ufm_df.groupby(["Salt + Strength", "Dosage Form"])
         .apply(get_all_items)
@@ -78,12 +73,23 @@ def process_mapping(uploaded_file):
 
     grouped_items = grouped_items.drop(columns=["AllItems"])
 
-    # Merge with mapped list
+    # ✅ FIX: Check if salt_df also has "Dosage Form" column
+    # If YES → merge on BOTH keys to avoid Dosage Form_x / Dosage Form_y collision
+    # If NO  → merge on Salt + Strength only (Dosage Form comes from grouped_items)
+    if "Dosage Form" in salt_df.columns:
+        merge_keys = ["Salt + Strength", "Dosage Form"]
+    else:
+        merge_keys = ["Salt + Strength"]
+
     final_df = salt_df.merge(
         grouped_items,
-        on="Salt + Strength",
+        on=merge_keys,
         how="left"
     )
+
+    # ✅ Safety check: ensure Dosage Form column always exists
+    if "Dosage Form" not in final_df.columns:
+        final_df["Dosage Form"] = ""
 
     # Save to memory
     output = BytesIO()

@@ -9,7 +9,6 @@ try:
     conn = psycopg2.connect(DATABASE_URL)
     conn.autocommit = True
     cursor = conn.cursor()
-
     print("✅ Connected to Supabase PostgreSQL database")
 
 except Exception as e:
@@ -23,9 +22,30 @@ CREATE TABLE IF NOT EXISTS mapped_products (
     dosage_form TEXT,
     alternatives TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE (salt_strength, dosage_form)
 );
+"""
+
+# ✅ FIX: Also add UNIQUE constraint to existing table if it was already created without it
+add_constraint_query = """
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_constraint
+        WHERE conname = 'mapped_products_salt_strength_dosage_form_key'
+    ) THEN
+        ALTER TABLE mapped_products
+        ADD CONSTRAINT mapped_products_salt_strength_dosage_form_key
+        UNIQUE (salt_strength, dosage_form);
+    END IF;
+END$$;
 """
 
 if cursor:
     cursor.execute(create_table_query)
+    try:
+        cursor.execute(add_constraint_query)
+        print("✅ UNIQUE constraint ensured on (salt_strength, dosage_form)")
+    except Exception as e:
+        print("Constraint note:", e)
